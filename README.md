@@ -5,6 +5,6 @@ Cell state transition trajectories can be estimated through continuous monitorin
 
 The model estimates the fraction of cells transiting from one state to the other state for each time interval. Our model considers the transition of cells from one state to another state, cell division, and cell death in the estimation of state transition trajectories. The estimation strategy involves two steps. First, we estimate the fractional cell division for each time interval. Using this data, we estimate the fractional state transition for each time interval.
 
-The complete model is developed in MATLAB and is easy to implement. The detailed information about the model is available in the research article, FLAG.
+The complete model is developed in MATLAB and is easy to implement. This model is implemented in studying the [Morphological State Transition Dynamics in EGF-Induced Epithelial to Mesenchymal Transition](https://www.mdpi.com/2077-0383/8/7/911/htm). The detailed information about the model and the mathematical equations are available in the [supplementary material](https://www.mdpi.com/2077-0383/8/7/911#supplementary) of the article.
 
 # Input data to the model
