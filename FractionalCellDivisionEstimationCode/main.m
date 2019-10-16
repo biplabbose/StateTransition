@@ -11,32 +11,37 @@ popFraction = xlsread('FractionCellType.xlsx');
 foldChange = xlsread('FoldChange.xlsx');
 
 % Number of cell states without dead state
-noCellState = 3;
+numCellState = 3;
 
 % Number of unknown parameters to be estimated for all time points
-noOfUnk = 15;
+numOfUnk = 15;
 
 %-------------------------------------------------------------------------------------------------
+% Computes the average fold change
+numReplicate = size(foldChange, 1);
+TEMP = mean(foldChange, 1);
+foldChange = repmat(TEMP, numReplicate, 1);
+
 % Converts the input cell fractions to a 3D array
 k=0;
-num = size(popFraction, 2)/noCellState;
+num = numOfUnk/numCellState;
 rowNum = size(popFraction, 1);
-popFract = zeros(rowNum, noCellState,num);
+popFract = zeros(rowNum, numCellState, num);
 for j=1:num
-	popFract(:,:,j) = popFraction(:,(1+k:noCellState+k));
-	k = j*noCellState;
+	popFract(:,:,j) = popFraction(:,(1+k:numCellState+k));
+	k = j*numCellState;
 end
 
 % Lower and Upper bounds of the parameters
-lb = reshape(zeros(noOfUnk, 1), noCellState, num);
-ub = reshape(ones(noOfUnk, 1), noCellState, num);
+lb = reshape(zeros(numOfUnk, 1), numCellState, num);
+ub = reshape(ones(numOfUnk, 1), numCellState, num);
 
 % Initial values of the unknown parameters
-q0 = reshape(zeros(noOfUnk, 1), noCellState, num);
+q0 = reshape(zeros(numOfUnk, 1), numCellState, num);
 
 % Initialises temporary varibales to store the results of optimisation
-q = zeros(noCellState, num);
-res = zeros(noCellState, num);
+q = zeros(numCellState, num);
+res = zeros(numReplicate, num);
 
 % Iteratively executes optimisation for each time interval
 for i = 1:num
