@@ -4,17 +4,17 @@ clear all; clc;
 % User defined parameters and the necessary input files are defined here.
 % User can change the values/file name against each variables defined here.
 
-% Input - fold change data
-foldChange = xlsread('FoldChange.xlsx');
-
 % Input - fraction of each cell type in the population
 popFraction = xlsread('FractionCellType.xlsx');
 
-% Number of unknown parameters to be estimated for all time points
-noOfUnk = 15;
+% Input - fold change data
+foldChange = xlsread('FoldChange.xlsx');
 
 % Number of cell states without dead state
 noCellState = 3;
+
+% Number of unknown parameters to be estimated for all time points
+noOfUnk = 15;
 
 %-------------------------------------------------------------------------------------------------
 % Converts the input cell fractions to a 3D array
