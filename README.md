@@ -13,7 +13,7 @@ The model requires the following data:
    * Fraction of each cell state at the observed time points
    * Fold change in cell population between successive time points
 
-# How to run the model?
+# Instructions to use the model
 ### 1. Estimation of the fraction of cell division:
 The MATLAB code to estimate the fraction of cell division for each time interval is available [here](FractionalCellDivisionEstimationCode/main.m). The input parameters of the model are defined in the earlier section of the code. This module requires the following input details:
 
@@ -43,3 +43,12 @@ Download the all the [.m files](FractionalStateTransitionEstimationCode/). Place
    * Pareto front of the multiobjective optimisation is exported to a jpg file, `paretoFront.jpg`.
    * `convergedFract.txt` is the converged fractions of state transition parameters of each solution in the pareto front. Columns represent the converged state transition parameters, and the rows represent the converged solutions of each data point on pareto front.
    * Best of all solutions in the pareto front is exported to a tab-delimited text file, `bestConvergedFract.txt`.
+
+# Authors
+
+   * Vimalathithan Devaraj
+   * Biplab Bose
+
+# License
+
+[![Github All Releases](https://img.shields.io/github/downloads/biplabbose/StateTransition/total.svg)]()
