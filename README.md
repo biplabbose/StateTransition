@@ -51,4 +51,6 @@ Download the all the [.m files](FractionalStateTransitionEstimationCode/). Place
 
 # License
 
-[![Github All Releases](https://img.shields.io/github/downloads/biplabbose/StateTransition/total.svg)]()
+# Downloads
+
+[![Github All Releases](https://img.shields.io/github/downloads/git@github.com:biplabbose/StateTransition.git/total.svg)]()
