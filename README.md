@@ -23,6 +23,15 @@ The model requires the following data:
 |\2. spans two cols   |
 | col 1    | col 2    |
 
+|              |           Grouping          ||
+| First Header | Second Header | Third Header |
+| ------------ | :-----------: | -----------: |
+| Content      |         *Long Cell*         ||
+| Content      |    **Cell**   |         Cell |
+| New section  |      More     |         Data |
+| And more     |    And more   |              |
+| :---------------------------------------: |||
+
    * Fold change in cell population between successive time points
 
 ## Instructions to use the model
