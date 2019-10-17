@@ -16,11 +16,11 @@ The complete model is developed in MATLAB and is easy to implement. This model i
 
 If there are _n_ different time points and _m_ different cell types and _p_ replicates of the experiment, then the input data should follow the below structure,
 
-|  conditions |    time_1    | time_1 |    time_1    | ... |    time_n    | time_n |    time_n    |
-| ----------- | ------------ | ------ | ------------ | --- | ------------ | ------ | ------------ |
-| replicate_1 | cell_fract_1 | ...    | cell_fract_m | ... | cell_fract_1 | ...    | cell_fract_m |
-| ...         | ...          | ...    | ...          | ... | ...          | ...    | ...          |
-| replicate_p | ...          | ...    | ...          | ... | ...          | ...    | ...          |
+|    conditions   |    time_1    | time_1 |    time_1    | ... |    time_n    | time_n |    time_n    |
+| --------------- | ------------ | ------ | ------------ | --- | ------------ | ------ | ------------ |
+| __replicate_1__ | cell_fract_1 | ...    | cell_fract_m | ... | cell_fract_1 | ...    | cell_fract_m |
+| __...__         | ...          | ...    | ...          | ... | ...          | ...    | ...          |
+| __replicate_p__ | ...          | ...    | ...          | ... | ...          | ...    | ...          |
 
 The data in each column are the fractions of different cell types. There __should not be any headers__ in the actual input excel sheet. The data should follow the same structure as shown in the above table.
 
@@ -30,9 +30,9 @@ Fold change in total cell population (live+dead) is calculated for every success
 
 |  conditions |    time_1   | ... |   time_n-1  |
 | ----------- | ----------- | --- | ----------- |
-| replicate_1 | fold_change | ... | fold_change |
-| ...         | ...         | ... | ...         |
-| replicate_p | ...         | ... | ...         |
+| __replicate_1__ | fold_change | ... | fold_change |
+| __...__         | ...         | ... | ...         |
+| __replicate_p__ | ...         | ... | ...         |
 
 The data in each column are the fold change in total cell population. There __should not be any headers__ in the actual input excel sheet. The data should follow the same structure as shown in the above table.
 
@@ -42,9 +42,9 @@ The model estimates fractional cell division from the above two input data. This
 
 |  conditions |     time_1     | ... |    time_n-1    |
 | ----------- | -------------- | --- | -------------- |
-| cell_type_1 | fract_cell_div | ... | fract_cell_div |
-| ...         | ...            | ... | ...            |
-| cell_type_m | ...            | ... | ...            |
+| __cell_type_1__ | fract_cell_div | ... | fract_cell_div |
+| __...__         | ...            | ... | ...            |
+| __cell_type_m__ | ...            | ... | ...            |
 
 The data in each column are the fractions of cell division of different cell types. There __should not be any headers__ in the actual input excel sheet. The data should follow the same structure as shown in the above table.
 
