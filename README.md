@@ -15,10 +15,10 @@ The model requires the following data:
 
    If there are _n_ different time points and _m_ different cell types, then the input data should follow the below structure,
 
-   |             |   Time-1   |            |            |
-   |             | CellType-1 | CellType-2 | CellType-m |
-   |-------------|------------|------------|------------|
-   | Replicate-1 |            |            |            |
+    |             |   Time-1   |            |            |
+    |             | CellType-1 | CellType-2 | CellType-m |
+    |-------------|------------|------------|------------|
+    | Replicate-1 |            |            |            |
 
    * Fold change in cell population between successive time points
 
