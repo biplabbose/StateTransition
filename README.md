@@ -4,14 +4,19 @@ The cellular state transition is a common phenomenon observed during embryogenes
 ## State Transition Model
 Cell state transition trajectories can be estimated through continuous monitoring of cells using live-cell imaging for a prolonged time. This experimental setup is costly and time-consuming. On the other hand, collecting cell population data at discrete time-points is much easier and cheaper. Our model estimates the trajectories of cell state transition from discrete-time population aggregate data.
 
-The model estimates the fraction of cells moving from one state to the other state for each time interval (t, t+&#916;t). Our model considers the transition of cells from one state to another state, cell division, and cell death in the estimation of state transition trajectories. The estimation strategy involves two steps. First, we estimate the fractional cell division for each time interval. Using this data, we estimate the fractional state transition for each time interval.
+The model performs piece-wise data fitting. The model estimates the fraction of cells moving from one state to the other state for each time interval (t, t+&#916;t). Our model considers the transition of cells from one state to another state, cell division, and cell death in the estimation of state transition trajectories. The estimation strategy involves two steps. First, we estimate the fractional cell division for each time interval. Using this data, we estimate the fractional state transition for each time interval.
 
 The complete model is developed in MATLAB and is easy to implement. This model is implemented in the study, [Morphological State Transition Dynamics in EGF-Induced Epithelial to Mesenchymal Transition](https://www.mdpi.com/2077-0383/8/7/911/htm). The detailed information about the model and the mathematical equations are available in the [supplementary material](https://www.mdpi.com/2077-0383/8/7/911#supplementary) of the [article](https://www.mdpi.com/2077-0383/8/7/911).
 
 ## Input data to the model
 The model requires the following data:
 
-   * Fraction of each cell state at the observed time points
+### 1. Fraction of each cell state at the observed time points
+
+   If there are _n_ different time points and _m_ different cell types, then the input data should follow the below structure,
+       |             | Time-1     |            |            |Time-2   |
+       |             | CellType-1 | CellType-2 | CellType-m |   CellType-1 | CellType-2 | CellType-m|
+       | Replicate-1 |            |            |            |   |
    * Fold change in cell population between successive time points
 
 ## Instructions to use the model
