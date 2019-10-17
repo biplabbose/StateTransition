@@ -12,7 +12,7 @@ The complete model is developed in MATLAB and is easy to implement. This model i
 
 ## Input data to the model
 
-### 1. Fraction of each cell state at the observed time points
+#### 1. Fraction of each cell state at the observed time points
 
 If there are _n_ different time points and _m_ different cell types and _p_ replicates of the experiment, then the input data should follow the below structure,
 
@@ -24,7 +24,7 @@ If there are _n_ different time points and _m_ different cell types and _p_ repl
 
 The data in each column are the fractions of different cell types. There __should not be any headers__ in the actual input excel sheet. The data should follow the same structure as shown in the above table.
 
-### 2. Fold change in cell population between successive time points
+#### 2. Fold change in cell population between successive time points
 
 Fold change in total cell population (live+dead) is calculated for every successive time interval. If there are _n_ different observed time points, there would be _n-1_ time intervals. The input data should follow the below structure,
 
@@ -36,7 +36,7 @@ Fold change in total cell population (live+dead) is calculated for every success
 
 The data in each column are the fold change in total cell population. There __should not be any headers__ in the actual input excel sheet. The data should follow the same structure as shown in the above table.
 
-### 3. Fractional cell division of each cell state for each time interval
+#### 3. Fractional cell division of each cell state for each time interval
 
 The model estimates fractional cell division from the above two input data. This data serves as th einput for the second part of the model, where fractional state transition parameters are estimated. Fractional cell division of each cell type is estimated for every successive time interval. If th ere are _n_ different observed time points and _m_ different cell types, there would be _n-1_ time intervals. The input data should follow the below structure,
 
@@ -50,7 +50,7 @@ The data in each column are the fractions of cell division of different cell typ
 
 ## Instructions to use the model
 
-### 1. Estimation of the fraction of cell division:
+#### 1. Estimation of the fraction of cell division:
 
 The MATLAB code to estimate the fraction of cell division for each time interval is available [here](FractionalCellDivisionEstimationCode/main.m). The input parameters of the model are defined in the earlier section of the `main.m` file. This module requires the following input details:
 
@@ -66,7 +66,7 @@ Now, run the `main.m` file. The unknown parameters are estimated by [linear leas
    * The estimated parameters are exported to a tab-delimited text file, `fractionalCellDivision.txt`. Each row represents the fractional cell division of each cell type, and the columns represent the fractional cell division for each time interval.
    * The residuals are exported to a tab-delimited text file, `residual.txt`. Residuals are the difference between the observed fold change and the simulated fold change. Each column represents the residual for each observed time interval, and the row represents the residuals of the experimental replicates.
 
-### 2. Estimation of the fraction of cell state transition:
+#### 2. Estimation of the fraction of cell state transition:
 
 The MATLAB code to estimate the fraction of cell state transition for each time interval is available [here](FractionalStateTransitionEstimationCode/). The folder contains multiple matlab files. A short description of each matlab function is provided in the header section of the respective matlab file. The input parameters of the model are defined in the `main.m` file. This module requires the following input details:
 
