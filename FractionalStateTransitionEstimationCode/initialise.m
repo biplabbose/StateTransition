@@ -24,8 +24,8 @@ st.pop.cellDiv = cellDiv;
 % Multi-objective Genetic algorithm parameters are defined here
 st.config.optim = gaoptimset('gamultiobj');
 st.optim.config.InitialPopulationRange = st.fract.initRange;
-st.optim.config.PopulationSize = 100;
-st.optim.config.Generations = 100;
+st.optim.config.PopulationSize = 50;
+st.optim.config.Generations = 50;
 st.optim.config.ParetoFraction = 0.7;
 st.optim.config.TolFun = 10^-6;
 st.optim.config.TolCon = 10^-6;
