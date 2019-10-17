@@ -32,8 +32,6 @@ The model requires the following data:
 | And more     |    And more   |              |
 | :---------------------------------------: |||
 
-
-
    * Fold change in cell population between successive time points
 
 ## Instructions to use the model
