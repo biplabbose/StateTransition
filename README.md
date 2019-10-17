@@ -15,25 +15,37 @@ The model requires the following data:
 
 If there are _n_ different time points and _m_ different cell types and _p_ replicates of the experiment, then the input data should follow the below structure,
 
-|  conditions |    Time_1   | Time_1 |    Time_1   | ... |    Time_n   | Time_n |    Time_n   |
-| ----------- | ----------- | ------ | ----------- | --- | ----------- | ------ | ----------- |
-| Replicate-1 | CellFract-1 | ...    | CellFract-m | ... | CellFract-1 | ...    | CellFract-m |
-| ...         | ...         | ...    | ...         | ... | ...         | ...    | ...         |
-| Replicate-p | ...         | ...    | ...         | ... | ...         | ...    | ...         |
+|  conditions |    time_1    | time_1 |    time_1    | ... |    time_n    | time_n |    time_n    |
+| ----------- | ------------ | ------ | ------------ | --- | ------------ | ------ | ------------ |
+| replicate_1 | cell_fract_1 | ...    | cell_fract_m | ... | cell_fract_1 | ...    | cell_fract_m |
+| ...         | ...          | ...    | ...          | ... | ...          | ...    | ...          |
+| replicate_p | ...          | ...    | ...          | ... | ...          | ...    | ...          |
 
 The data in each column are the fractions of different cell types.
 
 ### 2. Fold change in cell population between successive time points
 
-Fold change in total cell population (live+dead) is calculated between every successive time interval. If there are _n_ different observed time points, there would be _n-1_ time intervals. The input data should follow the below structure,
+Fold change in total cell population (live+dead) is calculated for every successive time interval. If there are _n_ different observed time points, there would be _n-1_ time intervals. The input data should follow the below structure,
 
-|  conditions |   Time_1   | ... |  Time_n-1  |
-| ----------- | ---------- | --- | ---------- |
-| Replicate-1 | FoldChange | ... | FoldChange |
-| ...         | ...        | ... | ...        |
-| Replicate-p | ...        | ... | ...        |
+|  conditions |    time_1   | ... |   time_n-1  |
+| ----------- | ----------- | --- | ----------- |
+| replicate_1 | fold_change | ... | fold_change |
+| ...         | ...         | ... | ...         |
+| replicate_p | ...         | ... | ...         |
+
+The data in each column are the fold change in total cell population.
 
 ### 3. Fractional cell division of each cell state for each time interval
+
+The model estimates fractional cell division from the above two input data. This data serves as th einput for the second part of the model, where fractional state transition parameters are estimated. Fractional cell division of each cell type is estimated for every successive time interval. If th ere are _n_ different observed time points and _m_ different cell types, there would be _n-1_ time intervals. The input data should follow the below structure,
+
+|  conditions |     time_1     | ... |    time_n-1    |
+| ----------- | -------------- | --- | -------------- |
+| cell_type_1 | fract_cell_div | ... | fract_cell_div |
+| ...         | ...            | ... | ...            |
+| cell_type_m | ...            | ... | ...            |
+
+The data in each column are the fractions of cell division of different cell types.
 
 ## Instructions to use the model
 ### 1. Estimation of the fraction of cell division:
