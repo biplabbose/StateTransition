@@ -120,8 +120,10 @@ Devaraj V., Bose B. Morphological State Transition Dynamics in EGF-induced Epith
 Usage and redistribution of this matlab package with or without modification is permitted.
 
 The matlab function `knee_pt.m` used in this model was developed by Kaplan, Dmitry (2012). [Knee Point, MATLAB Central File Exchange](https://in.mathworks.com/matlabcentral/fileexchange/35094-knee-point).
+
 Copyright (c) 2012, Dmitry Kaplan
 All rights reserved.
+
 Disclaimer: THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
