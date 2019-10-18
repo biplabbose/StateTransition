@@ -4,19 +4,19 @@ The cell state transition is a common phenomenon observed during embryogenesis, 
 
 ## State Transition Model
 
-The dynamics of cell state transition can be estimated through continuous monitoring of cells using live-cell imaging. This experimental setup is costly and time-consuming. On the other hand, collecting cell population data at discrete time-points is much easier and cheaper. Using computational tools, we can decipher the dynamics of state transition from these data. Our model estimates the fraction of cells moving from one state to other state from discrete-time population aggregate data.
+The dynamics of cell state transition can be estimated through continuous monitoring of cells using live-cell imaging. This experimental setup is costly and time-consuming. On the other hand, collecting cell population data at discrete time-points is much easier and cheaper. Using computational tools, we can decipher the dynamics of state transition from these data. Our model estimates the fraction of cells moving from one state to another state from discrete-time population aggregate data.
 
 The model performs piece-wise data fitting (i.e.) the unknown parameters are estimated for each time interval (t, t+&#916;t). Our model considers the transition of cells from one state to another state, cell division, and cell death in the estimation of state transition trajectories. Cell death is considered as a separate cell state, and the transition from dead cell state to other states is considered zero. Cell division is estimated from the model.
 
-The estimation strategy involves two steps. First, we estimate the fraction of dividing cells in each state. Using this data, we estimate the fraction of cells moving from one state to other state.
+The estimation strategy involves two steps. First, we estimate the fraction of dividing cells in each state. Using this data, we estimate the fraction of cells moving from one state to another state.
 
 #### 1. Estimation of fractional cell division parameters:
 
-Fraction of diving cells in each state are estimated for each time interval. The unknown parameters are estimated by [linear least square method](https://in.mathworks.com/help/optim/ug/lsqlin.html).
+The fraction of diving cells in each state is estimated for each time interval. The unknown parameters are estimated by [linear least square method](https://in.mathworks.com/help/optim/ug/lsqlin.html).
 
 #### 2. Estimation of fractional state transition parameters:
 
-Fractional flow of cells from one state to other state are estimated for each time interval. To avoid overfiting of data, we used two objective functions in the parameter estimation. Objective function 1, minimises the sum of square error between the observed data and the estimated data. Objective function 2, minimises the difference between L1-norm of fractional state transition parameters of two consecutive time interval. Using these two objective functions, we estimate the unknown parameters simultaeneoulsy for all time intervals. We implemented this optimization strategy using [multiobjective genetic algorithm](https://in.mathworks.com/help/gads/gamultiobj.html). The entire optimization process is repeated mutiple times to avoid local minima. Each run of the optimization is independent of the other. Therefore, this part of the model is executed in parallel using [parallel processing](https://in.mathworks.com/help/matlab/ref/parfor.html) in MATLAB.
+The fractional flow of cells from one state to another state is estimated for each time interval. To avoid overfitting of data, we used two objective functions in the parameter estimation. Objective function 1, minimizes the sum of square error between the observed data and the estimated data. Objective function 2, minimizes the difference between L1-norm of fractional state transition parameters of two consecutive time intervals. Using these two objective functions, we estimate the unknown parameters simultaneously for all time intervals. We implemented this optimization strategy using [multiobjective genetic algorithm](https://in.mathworks.com/help/gads/gamultiobj.html). The entire optimization process is repeated multiple times to avoid local minima. Each run of the optimization is independent of the other. Therefore, this part of the model is executed in parallel using [parallel processing](https://in.mathworks.com/help/Matlab/ref/parfor.html) in MATLAB.
 
 The complete model is developed in MATLAB and is easy to implement. This model is implemented in the study, [Morphological State Transition Dynamics in EGF-Induced Epithelial to Mesenchymal Transition](https://www.mdpi.com/2077-0383/8/7/911/htm). The detailed information about the model and the mathematical equations are available in the [supplementary material](https://www.mdpi.com/2077-0383/8/7/911#supplementary) of the [article](https://www.mdpi.com/2077-0383/8/7/911).
 
@@ -69,14 +69,14 @@ The MATLAB code to estimate the fraction of cell division for each time interval
    * `numOfUnk` reads the number of unknown parameters to be estimated. It is the product of the number of cell states and the number of observed time intervals. For example, If there are three cell states observed at five discrete time intervals, `numOfUnk`=15.
    * `numCellState` reads the number of different cell states.
 
-Download the [code](FractionalCellDivisionEstimationCode/main.m) and place the input excel sheets in the same location of the downloaded code. Open the `main.m` file in matlab and enter the input details. Now, run the `main.m` file. Once the optimization is completed, the following resuts are exported from the model:
+Download the [code](FractionalCellDivisionEstimationCode/main.m) and place the input excel sheets in the same location of the downloaded code. Open the `main.m` file in Matlab and enter the input details. Now, run the `main.m` file. Once the optimization is completed, the following results are exported from the model:
 
    * The estimated fractional cell division parameters are exported to a tab-delimited text file, `fractionalCellDivision.txt`. Each row represents the fractional cell division of each cell state, and the columns represent the fractional cell division in each time interval.
-   * The residuals are exported to a tab-delimited text file, `residual.txt`. Residuals are the difference between the observed fold change and the simulated fold change. Each column represent the residuals of each time interval, and the row represents the residuals of the experimental replicates.
+   * The residuals are exported to a tab-delimited text file, `residual.txt`. Residuals are the difference between the observed fold change and the simulated fold change. Each column represents the residuals of each time interval, and the row represents the residuals of the experimental replicates.
 
 #### 2. Estimation of the fraction of cell state transition:
 
-The MATLAB code to estimate the fraction of cell state transition for each time interval is available [here](FractionalStateTransitionEstimationCode/). The folder contains multiple matlab files. A short description of each matlab function is provided in the header section of the corresponding matlab file. The input parameters of the model are defined in the `main.m` file. This module requires the following input details:
+The MATLAB code to estimate the fraction of cell state transition for each time interval is available [here](FractionalStateTransitionEstimationCode/). The folder contains multiple Matlab files. A short description of each Matlab function is provided in the header section of the corresponding Matlab file. The input parameters of the model are defined in the `main.m` file. This module requires the following input details:
 
    * `popFract` reads the fraction of cell population at the observed time points from the excel sheet `FractionCellType.xlsx`. __The excel sheet should not contain any row or column headers.__
    * `foldChange` reads the fold change in cell population from the excel sheet `FoldChange.xlsx`. __The excel sheet should not contain any row or column headers.__
@@ -85,18 +85,18 @@ The MATLAB code to estimate the fraction of cell state transition for each time 
    * `numCellState` reads the number of different cell states.
    * `numOptRun` reads the number independent optimization runs.
 
-Download all the [.m files](FractionalStateTransitionEstimationCode/). Place the input excel sheets in the same location of the downloaded matlab files. Open the `main.m` file in matlab and enter the input details. Enter the location of all downloaded matlab files in the `main.m` file using `addpath`. For example, If the matlab files are in the location, `C:\xxx\yyy\` then include `addpath('C:\xxx\yyy\')` in the `main.m` file. 
+Download all the [.m files](FractionalStateTransitionEstimationCode/). Place the input excel sheets in the same location of the downloaded Matlab files. Open the `main.m` file in Matlab and enter the input details. Enter the location of all downloaded Matlab files in the `main.m` file using `addpath`. For example, If the Matlab files are in the location, `C:\xxx\yyy\` then include `addpath('C:\xxx\yyy\')` in the `main.m` file. 
 
-Configurations of the parameters of genetic algorithm are defined in `initialise.m`. If required, the user can edit the parameters in `initialise.m`. The description of each parameter is available in [mathworks](https://in.mathworks.com/help/gads/gamultiobj.html). 
+Configurations of the parameters of the genetic algorithm are defined in `initialise.m`. If required, the user can edit the parameters in `initialise.m`. The description of each parameter is available in [mathworks](https://in.mathworks.com/help/gads/gamultiobj.html). 
 
-Now, run the `main.m` file. The optimization runs in parallel, depending on the number of independent optimizations defined by the user. A [pareto front](https://in.mathworks.com/help/gads/examples/performing-a-multiobjective-optimization-using-the-genetic-algorithm.html) will be estimated for each independent optimization, and the best solution for each pareto front will be computed using [knee point](https://in.mathworks.com/matlabcentral/fileexchange/35094-knee-point). A subfolder will be created for each independent optimizations in the working directory, and the results are exported to the corresponding subfolders.
+Now, run the `main.m` file. The optimization runs in parallel, depending on the number of independent optimizations defined by the user. A [Pareto front](https://in.mathworks.com/help/gads/examples/performing-a-multiobjective-optimization-using-the-genetic-algorithm.html) will be estimated for each independent optimization, and the best solution for each Pareto front will be computed using [knee point](https://in.mathworks.com/matlabcentral/fileexchange/35094-knee-point). A subfolder will be created for each independent optimizations in the working directory, and the results are exported to the corresponding subfolders.
 
 The following are exported to subfolders of each optimization runs:
 
    * Pareto front of the multiobjective optimization is exported to a tab-delimited text file, `paretoFront.txt`. The first column represents the objective function 1 and the second column represents the objective function 2.
    * Pareto front of the multiobjective optimization is exported to a jpg file, `paretoFront.jpg`.
-   * `bestObjFun.txt` is the best of all solutions in the pareto front. The first column represents objective function 1, and the second column represents objective function 2.
-   * State transition parameters of the best solution in the pareto front is exported to a tab-delimited text file, `bestConvergedFract.txt`. The data are exported without row/column headers in a single 2D matrix with the following structure,
+   * `bestObjFun.txt` is the best of all solutions in the Pareto front. The first column represents objective function 1, and the second column represents objective function 2.
+   * State transition parameters of the best solution in the Pareto front is exported to a tab-delimited text file, `bestConvergedFract.txt`. The data are exported without row/column headers in a single 2D matrix with the following structure,
 
 |       time_1       | cell_state_1 | ... | cell_state_m-1 |
 |--------------------|--------------|-----|----------------|
@@ -118,7 +118,7 @@ We have given a sample test data from the study, [Morphological State Transition
 
 The sample data to estimate fractional cell division are available [here](FractionalCellDivisionEstimationCode/TestData/) and the sample output files are available [here](FractionalCellDivisionEstimationCode/TestData/OutputData/).
 
-The sample data to estimate fractional state transition parameters are available [here](FractionalStateTransitionEstimationCode/TestData/) and the sample output files are available [here](FractionalStateTransitionEstimationCode/TestData/OutputData/). The input parameters used to generate the outputs were, `numOptRun=10`, `st.optim.config.PopulationSize=250` and `st.optim.config.Generations=250`. Whenever the model is executed with this test data and settings, the numerical results might not be the same as given in the [sample output](FractionalStateTransitionEstimationCode/TestData/OutputData/). Rather, the trend of the data would be similar.
+The sample data to estimate fractional state transition parameters are available [here](FractionalStateTransitionEstimationCode/TestData/) and the sample output files are available [here](FractionalStateTransitionEstimationCode/TestData/OutputData/). The input parameters used to generate the outputs were, `numOptRun=10`, `st.optim.config.PopulationSize=250` and `st.optim.config.Generations=250`. Whenever the model is executed with the given test data and settings, the numerical results might not be the same as given in the [sample output](FractionalStateTransitionEstimationCode/TestData/OutputData/). Rather, the trend of the data would be similar.
 
 ## Citing the model
 
@@ -131,6 +131,6 @@ Devaraj V., Bose B. Morphological State Transition Dynamics in EGF-induced Epith
 
 ## License
 
-Usage and redistribution of the source codes of this matlab package with or without modification are permitted.
+Usage and redistribution of the source codes of this Matlab package with or without modification are permitted.
 
-The matlab function `knee_pt.m` used in this model was developed by Kaplan, Dmitry (2012). [Knee Point](https://in.mathworks.com/matlabcentral/fileexchange/35094-knee-point), MATLAB Central File Exchange. [Copyright (c) 2012, Dmitry Kaplan. All rights reserved.](FractionalStateTransitionEstimationCode/license_knee_pt.txt)
+The Matlab function `knee_pt.m` used in this model was developed by Kaplan, Dmitry (2012). [Knee Point](https://in.mathworks.com/matlabcentral/fileexchange/35094-knee-point), MATLAB Central File Exchange. [Copyright (c) 2012, Dmitry Kaplan. All rights reserved.](FractionalStateTransitionEstimationCode/license_knee_pt.txt)
