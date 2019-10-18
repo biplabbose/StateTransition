@@ -119,19 +119,4 @@ Devaraj V., Bose B. Morphological State Transition Dynamics in EGF-induced Epith
 
 Usage and redistribution of this matlab package with or without modification is permitted.
 
-The matlab function `knee_pt.m` used in this model was developed by Kaplan, Dmitry (2012). [Knee Point, MATLAB Central File Exchange](https://in.mathworks.com/matlabcentral/fileexchange/35094-knee-point).
-
-Copyright (c) 2012, Dmitry Kaplan
-All rights reserved.
-
-Disclaimer: THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
+The matlab function `knee_pt.m` used in this model was developed by Kaplan, Dmitry (2012). [Knee Point, MATLAB Central File Exchange](https://in.mathworks.com/matlabcentral/fileexchange/35094-knee-point). [Copyright (c) 2012, Dmitry Kaplan. All rights reserved.](FractionalStateTransitionEstimationCode/license.txt)
