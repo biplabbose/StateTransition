@@ -90,23 +90,21 @@ The following are exported to subfolders of each optimisation runs:
    * Pareto front of the multiobjective optimisation is exported to a tab-delimited text file, `paretoFront.txt`. First column represents the objective function 1 and the second column represents the objective function 2.
    * Pareto front of the multiobjective optimisation is exported to a jpg file, `paretoFront.jpg`.
    * `bestObjFun.txt` is the best of all solutions in the pareto front. First column represents objective function 1 and the second column represents objective function 2.
-   * Best of all solutions in the pareto front is exported to a tab-delimited text file, `bestConvergedFract.txt`. The data are exported without row/column headers in a 2D matrix with the following structure,
+   * Best of all solutions in the pareto front is exported to a tab-delimited text file, `bestConvergedFract.txt`. The data are exported without row/column headers in a single 2D matrix with the following structure,
 
-|      time_1      | cell_state_1 | ... | cell_state_m-1 |
-|------------------|--------------|-----|----------------|
-| __cell_state_1__ | ...          | ... | ...            |
-| __...__          | ...          | ... | ...            |
+|       time_1       | cell_state_1 | ... | cell_state_m-1 |
+|--------------------|--------------|-----|----------------|
+| __cell_state_1__   | ...          | ... | ...            |
+| __...__            | ...          | ... | ...            |
 | __cell_state_m-1__ | ...          | ... | ...            |
 
-| time_n-1         | cell_state_1 | ... | cell_state_m-1 |
-|------------------|--------------|-----|----------------|
-| __cell_state_1__ | ...          | ... | ...            |
-| __...__          | ...          | ... | ...            |
+|      time_n-1      | cell_state_1 | ... | cell_state_m-1 |
+|--------------------|--------------|-----|----------------|
+| __cell_state_1__   | ...          | ... | ...            |
+| __...__            | ...          | ... | ...            |
 | __cell_state_m-1__ | ...          | ... | ...            |
 
 Once all the independent optimisations are completed, the data extraction process begins. The best solution from each optimisation run will be extracted and exported to a tab delimited text file, `bestOfEachRun.txt` in the working directory. The solution with minimum objective function 1 is the most optimal solution of all runs and the corresponding converged state transition fractions are the optimal state transition parameters. The index of the optimal run and the details of the objective function are exported to a tab delimited text file, `summary.txt` in the working directory. 
-
-The following are exported
 
 ## Citing the model
 
@@ -118,3 +116,20 @@ Devaraj V., Bose B. Morphological State Transition Dynamics in EGF-induced Epith
    * Biplab Bose
 
 ## License
+
+Usage and redistribution of this matlab package with or without modification is permitted.
+
+The matlab function `knee_pt.m` used in this model was developed by Kaplan, Dmitry (2012). [Knee Point, MATLAB Central File Exchange](https://in.mathworks.com/matlabcentral/fileexchange/35094-knee-point).
+Copyright (c) 2012, Dmitry Kaplan
+All rights reserved.
+Disclaimer: THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
