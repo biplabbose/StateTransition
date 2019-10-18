@@ -32,7 +32,7 @@ If there are _n_ different time points and _m_ different cell states and _p_ rep
 | __...__         | ...          | ...    | ...            | ... | ...          | ...    | ...            |
 | __replicate_p__ | ...          | ...    | ...            | ... | ...          | ...    | ...            |
 
-The data in each column are the fractions of different cell states. There __should not be any headers__ in the actual input excel sheet. The data should follow the same structure, as shown in the above table. __Here, _m-1_ denotes the number of cell states excluding dead cell state__. The summation of cell fractions of all cell state at a given time point is one. The fraction of the dead cell state can be estimated from the other cell states, and the dead cell state does not add any extra information to the model fitting. Therefore, the fraction of the dead cell state will not be used in the model. Detailed information about the model structure and the underlying assumptions are available in the [supplementary material](https://www.mdpi.com/2077-0383/8/7/911#supplementary) of the [article](https://www.mdpi.com/2077-0383/8/7/911).
+The data in each column are the fractions of different cell states. __There should not be any headers in the actual input excel sheet__. The data should follow the same structure, as shown in the above table. __Here, _m-1_ denotes the number of cell states excluding dead cell state__. The summation of cell fractions of all cell state at a given time point is one. The fraction of the dead cell state can be estimated from the other cell states, and the dead cell state does not add any extra information to the model fitting. Therefore, the fraction of the dead cell state will not be used in the model. Detailed information about the model structure and the underlying assumptions are available in the [supplementary material](https://www.mdpi.com/2077-0383/8/7/911#supplementary) of the [article](https://www.mdpi.com/2077-0383/8/7/911).
 
 #### 2. Fold change in total cell population between successive time points
 
@@ -66,13 +66,12 @@ The MATLAB code to estimate the fraction of cell division for each time interval
 
    * `popFraction` reads the fraction of cell population at the observed time points from the excel sheet `FractionCellType.xlsx`. __The excel sheet should not contain any row or column headers.__
    * `foldChange` reads the fold change in cell population from the excel sheet `FoldChange.xlsx`. __The excel sheet should not contain any row or column headers.__
-   * `numOfUnk` reads the number of unknown parameters to be estimated. It is the product of the number of cell states and the number of observed time intervals. For example, If there are three cell states observed at five discrete time intervals, `numOfUnk`=15.
-   * `numCellState` reads the number of different cell states.
+   * `numOfUnk` reads the number of unknown parameters to be estimated. It is the product of the number of cell states __(excluding dead cell state)__ and the number of observed time intervals. For example, If there are three cell states observed at five discrete time intervals, `numOfUnk`=15.
+   * `numCellState` reads the number of different cell states __(excluding dead cell state)__.
 
 Download the [code](FractionalCellDivisionEstimationCode/main.m) and place the input excel sheets in the same location of the downloaded code. Open the `main.m` file in MATLAB and enter the input details. Now, run the `main.m` file. Once the optimization is completed, the following results are exported from the model:
 
    * The estimated fractional cell division parameters are exported to a tab-delimited text file, `fractionalCellDivision.txt`. Each row represents the fractional cell division of each cell state, and the columns represent the fractional cell division in each time interval.
-   * The residuals are exported to a tab-delimited text file, `residual.txt`. Residuals are the difference between the observed fold change and the simulated fold change. Each column represents the residuals of each time interval, and the row represents the residuals of the experimental replicates.
 
 #### 2. Estimation of the fraction of cell state transition:
 
