@@ -96,12 +96,13 @@ The following are exported to subfolders of each optimisation runs:
 |------------------|--------------|-----|----------------|
 | __cell_state_1__ | ...          | ... | ...            |
 | __...__          | ...          | ... | ...            |
-| __cell_state_m-1 | ...          | ... | ...            |
+| __cell_state_m-1__ | ...          | ... | ...            |
+
 | time_n-1         | cell_state_1 | ... | cell_state_m-1 |
 |------------------|--------------|-----|----------------|
 | __cell_state_1__ | ...          | ... | ...            |
 | __...__          | ...          | ... | ...            |
-| __cell_state_m-1 | ...          | ... | ...            |
+| __cell_state_m-1__ | ...          | ... | ...            |
 
 Once all the independent optimisations are completed, the data extraction process begins. The best solution from each optimisation run will be extracted and exported to a tab delimited text file, `bestOfEachRun.txt` in the working directory. The solution with minimum objective function 1 is the most optimal solution of all runs and the corresponding converged state transition fractions are the optimal state transition parameters. The index of the optimal run and the details of the objective function are exported to a tab delimited text file, `summary.txt` in the working directory. 
 
