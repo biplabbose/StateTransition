@@ -1,14 +1,22 @@
 # Cell State Transition
 
-The cellular state transition is a common phenomenon observed during embryogenesis, wound healing, cancer metastasis. The state of a cell can be defined based on either molecular features like gene expression, protein expression, or functional features like change in morphology, migration potential of cells. Various signaling molecules induce cell state transition. The dynamics of state transition depends on the strength and the duration of the signaling molecules. In this project, we have developed a mathematical model to study cell state transition dynamics.
+The cell state transition is a common phenomenon observed during embryogenesis, wound healing, cancer metastasis. The state of a cell can be defined based on either molecular features like gene expression, protein expression, or functional features like change in morphology, migration potential of cells. Various signaling molecules induce cell state transition. The dynamics of state transition depends on the strength and the duration of the signaling molecules. In this project, we have developed a mathematical model to study cell state transition dynamics.
 
 ## State Transition Model
 
-Cell state transition trajectories can be estimated through continuous monitoring of cells using live-cell imaging for a prolonged time. This experimental setup is costly and time-consuming. On the other hand, collecting cell population data at discrete time-points is much easier and cheaper. Our model estimates the trajectories of cell state transition from discrete-time population aggregate data.
+The dynamics of Cell state transition can be estimated through continuous monitoring of cells using live-cell imaging. This experimental setup is costly and time-consuming. On the other hand, collecting cell population data at discrete time-points is much easier and cheaper. Using computational tools, we can decipher the dynamics of state transition from these data. Our model estimates the trajectories of cell state transition from discrete-time population aggregate data.
 
-The model performs piece-wise data fitting. The model estimates the fraction of cells moving from one state to the other state for each time interval (t, t+&#916;t). Our model considers the transition of cells from one state to another state, cell division, and cell death in the estimation of state transition trajectories. Cell death is considered as a separate cell state, and the transition from dead cell state to other states is considered zero. Cell division is estimated from the model. 
+The model performs piece-wise data fitting. The model estimates the fraction of cells moving from one state to the other state for each time interval (t, t+&#916;t). Our model considers the transition of cells from one state to another state, cell division, and cell death in the estimation of state transition trajectories. Cell death is considered as a separate cell state, and the transition from dead cell state to other states is considered zero. Cell division is estimated from the model.
 
-The estimation strategy involves two steps. First, we estimate the fractional cell division for each time interval. Using this data, we estimate the fractional state transition for each time interval. 
+The estimation strategy involves two steps. First, we estimate the fractional cell division for each time interval. Using this data, we estimate the fractional state transition for each time interval.
+
+#### 1. Estimation of fractional cell division parameters:
+
+Fraction of diving cells in each state are estimated for each time interval. The unknown parameters are estimated by [linear least square method](https://in.mathworks.com/help/optim/ug/lsqlin.html).
+
+#### 2. Estimation of fractional state transition parameters:
+
+Fractional flow of cells from one state to other state are estimated for each interval. To avoid overfiting of data, we used two objective functions in the parameter estimation. Objective function 1, minimises the sum of square error between the observed data and the estimated data. Objective function 2, minimises the difference between L1-norm of fractional state transition parameters of two consecutive time interval. Using these two objective functions, We estimate the unknown parameters simultaeneoulsy for all time intervals. We implemented this optimization strategy using [multiobjective genetic algorithm](https://in.mathworks.com/help/gads/gamultiobj.html).
 
 The complete model is developed in MATLAB and is easy to implement. This model is implemented in the study, [Morphological State Transition Dynamics in EGF-Induced Epithelial to Mesenchymal Transition](https://www.mdpi.com/2077-0383/8/7/911/htm). The detailed information about the model and the mathematical equations are available in the [supplementary material](https://www.mdpi.com/2077-0383/8/7/911#supplementary) of the [article](https://www.mdpi.com/2077-0383/8/7/911).
 
@@ -63,7 +71,7 @@ The MATLAB code to estimate the fraction of cell division for each time interval
 
 Download the [code](FractionalCellDivisionEstimationCode/main.m) and place the input excel sheets in the same location of the downloaded code. Open the `main.m` file in matlab and enter the input details. 
 
-Now, run the `main.m` file. The unknown parameters are estimated by [linear least square method](https://in.mathworks.com/help/optim/ug/lsqlin.html). The following are exported from the model:
+Now, run the `main.m` file. Once the optimization is completed, the following resuts are exported from the model:
 
    * The estimated parameters are exported to a tab-delimited text file, `fractionalCellDivision.txt`. Each row represents the fractional cell division of each cell state, and the columns represent the fractional cell division for each time interval.
    * The residuals are exported to a tab-delimited text file, `residual.txt`. Residuals are the difference between the observed fold change and the simulated fold change. Each column represents the residual for each observed time interval, and the row represents the residuals of the experimental replicates.
@@ -81,7 +89,7 @@ The MATLAB code to estimate the fraction of cell state transition for each time 
 
 Download all the [.m files](FractionalStateTransitionEstimationCode/). Place the input excel sheets in the same location of the downloaded matlab files. Open the `main.m` file in matlab and enter the input details. Enter the location of all downloaded matlab files in the header of the `main.m` file using `addpath`. For example, If the matlab files are in the location, `C:\xxx\yyy\` then include `addpath('C:\xxx\yyy\')` in the header of the `main.m` file. 
 
-This module uses [multiobjective genetic algorithm](https://in.mathworks.com/help/gads/gamultiobj.html) to estimate the unknown parameters. Configurations of the genetic algorithm are defined in `initialise.m`. If required, the user can edit the parameters in `initialise.m`. The description of each parameter is available in [mathworks](https://in.mathworks.com/help/gads/gamultiobj.html). 
+Configurations of the parameters of genetic algorithm are defined in `initialise.m`. If required, the user can edit the parameters in `initialise.m`. The description of each parameter is available in [mathworks](https://in.mathworks.com/help/gads/gamultiobj.html). 
 
 Now, run the `main.m` file. The optimization runs in parallel, depending on the number of independent optimizations defined by the user. A [pareto front](https://in.mathworks.com/help/gads/examples/performing-a-multiobjective-optimization-using-the-genetic-algorithm.html) will be estimated for each independent optimization, and the best solution for each independent optimization will be computed using [knee point](https://in.mathworks.com/matlabcentral/fileexchange/35094-knee-point). A subfolder will be created for each independent optimizations in the working directory, and the results are exported to the corresponding subfolders.
 
