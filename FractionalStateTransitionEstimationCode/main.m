@@ -28,7 +28,7 @@ numCellState = 3;
 numOfUnknown = 45;
 
 % Number of independent optimisation runs
-numOptRun = 1;
+numOptRun = 10;
 
 %--------------------------------------------------------------------------------------------------
 % Lower and upper bounds for parameter space
@@ -48,7 +48,7 @@ fractTEMP = st.fract;
 popTEMP = st.pop;
 configTEMP = st.optim.config;
 fprintf('Initialising optimisation runs in parallel...\n')
-for i=1:numOptRun
+parfor i=1:numOptRun
 	% Creates subfolders for each optimisation runs
 	curDir = pwd;
 	folderPath = sprintf('%s%s%d', curDir, '\', i);
@@ -58,7 +58,7 @@ for i=1:numOptRun
 	% Starts independnet optimisation runs
 	fprintf('Executing run-%d of %d\n', i, numOptRun);
 	result = optimisation(fractTEMP, popTEMP, configTEMP);
-    
+
 	% Estimates the best solution for each optimisation run
 	bestOfOptimal(result, fractTEMP);
 
@@ -68,7 +68,7 @@ end
 
 data = NaN(numOptRun, 2);
 for i=1:numOptRun
-    folderPath = sprintf('%s%s%d', curDir, '\', i);
+	folderPath = sprintf('%s%s%d', curDir, '\', i);
 	cd(folderPath);
 	data(i,:) = importdata('bestObjFun.txt');
 	cd(curDir);
