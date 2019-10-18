@@ -122,7 +122,7 @@ The sample data to estimate fractional state transition parameters are available
 
 ## Citing the model
 
-Devaraj V., Bose B. Morphological State Transition Dynamics in EGF-induced Epithelial to Mesenchymal Transition. Journal of clinical medicine [doi: 10.3390/jcm8070911](https://www.mdpi.com/2077-0383/8/7/911).
+Devaraj V., Bose B. Morphological State Transition Dynamics in EGF-induced Epithelial to Mesenchymal Transition. _Journal of clinical medicine_. [doi: 10.3390/jcm8070911](https://www.mdpi.com/2077-0383/8/7/911).
 
 ## Authors
 
