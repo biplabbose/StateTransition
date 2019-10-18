@@ -27,11 +27,11 @@ end
 function Text(result, bestOptimal, fract)
 % Exports the results in a tab delimited text file.
 % paretoFront.txt -- Values of the objective functions in the pareto front.
-% convergedFract.txt -- Converged parameters for each solution in the pareto front.
+% bestObjFun.txt -- Best of all solutions in the pareto front.
 % bestConvergedFract.txt -- Best of all converged parameters in the pareto front.
 
-dlmwrite ('convergedFract.txt', result.fract, 'delimiter', '\t', 'precision', '%.4f');
 dlmwrite ('paretoFront.txt', result.objFun, 'delimiter', '\t', 'precision', '%.4f');
+dlmwrite ('bestObjFun.txt', [bestOptimal.objFun1, bestOptimal.objFun2], 'delimiter', '\t', 'precision', '%.4f');
 numOfVar = fract.numOfVar;
 numOfStates = fract.numOfStates;
 num = numOfVar/(numOfStates^2);

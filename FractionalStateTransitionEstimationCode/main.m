@@ -56,14 +56,30 @@ for i=1:numOptRun
 	cd(folderPath);
 
 	% Starts independnet optimisation runs
-	fprintf('Executing run-%d of %d\n', i, numOptRun)
+	fprintf('Executing run-%d of %d\n', i, numOptRun);
 	result = optimisation(fractTEMP, popTEMP, configTEMP);
-
+    
 	% Estimates the best solution for each optimisation run
 	bestOfOptimal(result, fractTEMP);
 
 	cd(curDir);
 	fprintf('Completed run-%d of %d\n', i, numOptRun)
 end
+
+data = NaN(numOptRun, 2);
+for i=1:numOptRun
+    folderPath = sprintf('%s%s%d', curDir, '\', i);
+	cd(folderPath);
+	data(i,:) = importdata('bestObjFun.txt');
+	cd(curDir);
+end
+dlmwrite('bestOfEachRun.txt', data, 'delimiter', '\t');
+[TEMP, index] = min(data(:,1));
+bestObjFun = data(index,:);
+fid=fopen('summary.txt','w');
+fprintf(fid, 'Best of all optimisation runs-Run index: %d', index);
+fprintf(fid, '\nObjective function 1: %0.4f', bestObjFun(1));
+fprintf(fid, '\nObjective function 2: %0.4f', bestObjFun(2));
+fclose(fid);
 
 end

@@ -12,10 +12,7 @@ B = fract.consB;
 q = pop.cellDiv;
 fd = pop.foldChange;
 options = config;
-
-
 result = struct('fract','','objFun','','exitFlag','','output','','population','','score','');
-
 
 try
 	[fract,fval,exitFlag,output,population, score] = gamultiobj(@Minimisation, numOfVar, A, B, [], [], lb, ub, options);
@@ -46,7 +43,7 @@ objFun(1) = 0;
 objFun(2) = 0;
 
 k=0;
-numOfReplicates = size(pop.initFract,1)
+numOfReplicates = size(pop.initFract,1);
 f = zeros(numOfStates, numOfStates, num);
 x0 = zeros(numOfStates, numOfReplicates, num);
 xf = zeros(numOfStates, numOfReplicates, num);
