@@ -6,7 +6,9 @@ The cellular state transition is a common phenomenon observed during embryogenes
 
 Cell state transition trajectories can be estimated through continuous monitoring of cells using live-cell imaging for a prolonged time. This experimental setup is costly and time-consuming. On the other hand, collecting cell population data at discrete time-points is much easier and cheaper. Our model estimates the trajectories of cell state transition from discrete-time population aggregate data.
 
-The model performs piece-wise data fitting. The model estimates the fraction of cells moving from one state to the other state for each time interval (t, t+&#916;t). Our model considers the transition of cells from one state to another state, cell division, and cell death in the estimation of state transition trajectories. The estimation strategy involves two steps. First, we estimate the fractional cell division for each time interval. Using this data, we estimate the fractional state transition for each time interval.
+The model performs piece-wise data fitting. The model estimates the fraction of cells moving from one state to the other state for each time interval (t, t+&#916;t). Our model considers the transition of cells from one state to another state, cell division, and cell death in the estimation of state transition trajectories. Cell death is considered as a separate cell state and the transition from dead cell state to other states are considered zero. Cell division is estimated from the model. 
+
+The estimation strategy involves two steps. First, we estimate the fractional cell division for each time interval. Using this data, we estimate the fractional state transition for each time interval. 
 
 The complete model is developed in MATLAB and is easy to implement. This model is implemented in the study, [Morphological State Transition Dynamics in EGF-Induced Epithelial to Mesenchymal Transition](https://www.mdpi.com/2077-0383/8/7/911/htm). The detailed information about the model and the mathematical equations are available in the [supplementary material](https://www.mdpi.com/2077-0383/8/7/911#supplementary) of the [article](https://www.mdpi.com/2077-0383/8/7/911).
 
@@ -14,15 +16,15 @@ The complete model is developed in MATLAB and is easy to implement. This model i
 
 #### 1. Fraction of each cell state at the observed time points
 
-If there are _n_ different time points and _m_ different cell types and _p_ replicates of the experiment, then the input data should follow the below structure,
+If there are _n_ different time points and _m_ different cell states and _p_ replicates of the experiment, then the input data should follow the below structure,
 
 |    conditions   |    time_1    | time_1 |    time_1    | ... |    time_n    | time_n |    time_n    |
 | --------------- | ------------ | ------ | ------------ | --- | ------------ | ------ | ------------ |
-| __replicate_1__ | cell_fract_1 | ...    | cell_fract_m | ... | cell_fract_1 | ...    | cell_fract_m |
+| __replicate_1__ | cell_fract_1 | ...    | cell_fract_m-1 | ... | cell_fract_1 | ...    | cell_fract_m-1 |
 | __...__         | ...          | ...    | ...          | ... | ...          | ...    | ...          |
 | __replicate_p__ | ...          | ...    | ...          | ... | ...          | ...    | ...          |
 
-The data in each column are the fractions of different cell types. There __should not be any headers__ in the actual input excel sheet. The data should follow the same structure as shown in the above table.
+The data in each column are the fractions of different cell states. There __should not be any headers__ in the actual input excel sheet. The data should follow the same structure as shown in the above table. __Here, _m-1_ denotes the number of cell states excluding dead cell state__. The summation of cell fractions of all cell state at a given time point is one. Fraction of dead cell state can be estimated from the other cell states and the dead cell state do not add any extra information to the model fitting. Therefore, the fraction of dead cell state will not be used in the model. Detailed information about the model structure and the undrlying assumptions are available in the [supplementary material](https://www.mdpi.com/2077-0383/8/7/911#supplementary) of the [article](https://www.mdpi.com/2077-0383/8/7/911).
 
 #### 2. Fold change in cell population between successive time points
 
@@ -38,15 +40,15 @@ The data in each column are the fold change in total cell population. There __sh
 
 #### 3. Fractional cell division of each cell state for each time interval
 
-The model estimates fractional cell division from the above two input data. This data serves as th einput for the second part of the model, where fractional state transition parameters are estimated. Fractional cell division of each cell type is estimated for every successive time interval. If th ere are _n_ different observed time points and _m_ different cell types, there would be _n-1_ time intervals. The input data should follow the below structure,
+The model estimates fractional cell division from the above two input data. This data serves as th einput for the second part of the model, where fractional state transition parameters are estimated. Fractional cell division of each cell state is estimated for every successive time interval. If th ere are _n_ different observed time points and _m_ different cell states, there would be _n-1_ time intervals. The input data should follow the below structure,
 
 |  conditions |     time_1     | ... |    time_n-1    |
 | ----------- | -------------- | --- | -------------- |
-| __cell_type_1__ | fract_cell_div | ... | fract_cell_div |
+| __cell_state_1__ | fract_cell_div | ... | fract_cell_div |
 | __...__         | ...            | ... | ...            |
-| __cell_type_m__ | ...            | ... | ...            |
+| __cell_state_m__ | ...            | ... | ...            |
 
-The data in each column are the fractions of cell division of different cell types. There __should not be any headers__ in the actual input excel sheet. The data should follow the same structure as shown in the above table.
+The data in each column are the fractions of cell division of different cell states. There __should not be any headers__ in the actual input excel sheet. The data should follow the same structure as shown in the above table.
 
 ## Instructions to use the model
 
@@ -63,7 +65,7 @@ Download the [code](FractionalCellDivisionEstimationCode/main.m) and place the i
 
 Now, run the `main.m` file. The unknown parameters are estimated by [linear least square method](https://in.mathworks.com/help/optim/ug/lsqlin.html). The following are exported from the model:
 
-   * The estimated parameters are exported to a tab-delimited text file, `fractionalCellDivision.txt`. Each row represents the fractional cell division of each cell type, and the columns represent the fractional cell division for each time interval.
+   * The estimated parameters are exported to a tab-delimited text file, `fractionalCellDivision.txt`. Each row represents the fractional cell division of each cell state, and the columns represent the fractional cell division for each time interval.
    * The residuals are exported to a tab-delimited text file, `residual.txt`. Residuals are the difference between the observed fold change and the simulated fold change. Each column represents the residual for each observed time interval, and the row represents the residuals of the experimental replicates.
 
 #### 2. Estimation of the fraction of cell state transition:
@@ -81,12 +83,29 @@ Download all the [.m files](FractionalStateTransitionEstimationCode/). Place the
 
 This module uses [multiobjective genetic algorithm](https://in.mathworks.com/help/gads/gamultiobj.html) to estimate the unknown parameters. Configurations of the genetic algorithm are defined in `initialise.m`. If required the user can edit the parameters in `initialise.m`. The description about each parameter are available in [mathworks](https://in.mathworks.com/help/gads/gamultiobj.html). 
 
-Now, run the `main.m` file. The optimisation runs in parallel depending on the number of independent optimisations defined by the user. A [pareto front](https://in.mathworks.com/help/gads/examples/performing-a-multiobjective-optimization-using-the-genetic-algorithm.html) will be estimated for each independent optimisation and the best solution for each independent optimisation will be computed using [knee point](https://in.mathworks.com/matlabcentral/fileexchange/35094-knee-point). A subfolder will be created for each independent optimisations in the working directory and the results are exported to the corresponding subfolders. The following are exported from the model:
+Now, run the `main.m` file. The optimisation runs in parallel depending on the number of independent optimisations defined by the user. A [pareto front](https://in.mathworks.com/help/gads/examples/performing-a-multiobjective-optimization-using-the-genetic-algorithm.html) will be estimated for each independent optimisation and the best solution for each independent optimisation will be computed using [knee point](https://in.mathworks.com/matlabcentral/fileexchange/35094-knee-point). A subfolder will be created for each independent optimisations in the working directory and the results are exported to the corresponding subfolders.
+
+The following are exported to subfolders of each optimisation runs:
 
    * Pareto front of the multiobjective optimisation is exported to a tab-delimited text file, `paretoFront.txt`. First column represents the objective function 1 and the second column represents the objective function 2.
    * Pareto front of the multiobjective optimisation is exported to a jpg file, `paretoFront.jpg`.
-   * `convergedFract.txt` is the converged fractions of state transition parameters of each solution in the pareto front. Columns represent the converged state transition parameters, and the rows represent the converged solutions of each data point on pareto front.
-   * Best of all solutions in the pareto front is exported to a tab-delimited text file, `bestConvergedFract.txt`.
+   * `bestObjFun.txt` is the best of all solutions in the pareto front. First column represents objective function 1 and the second column represents objective function 2.
+   * Best of all solutions in the pareto front is exported to a tab-delimited text file, `bestConvergedFract.txt`. The data are exported without row/column headers in a 2D matrix with the following structure,
+
+|      time_1      | cell_state_1 | ... | cell_state_m-1 |
+|------------------|--------------|-----|----------------|
+| __cell_state_1__ | ...          | ... | ...            |
+| __...__          | ...          | ... | ...            |
+| __cell_state_m-1 | ...          | ... | ...            |
+| time_n-1         | cell_state_1 | ... | cell_state_m-1 |
+|------------------|--------------|-----|----------------|
+| __cell_state_1__ | ...          | ... | ...            |
+| __...__          | ...          | ... | ...            |
+| __cell_state_m-1 | ...          | ... | ...            |
+
+Once all the independent optimisations are completed, the data extraction process begins. The best solution from each optimisation run will be extracted and exported to a tab delimited text file, `bestOfEachRun.txt` in the working directory. The solution with minimum objective function 1 is the most optimal solution of all runs and the corresponding converged state transition fractions are the optimal state transition parameters. The index of the optimal run and the details of the objective function are exported to a tab delimited text file, `summary.txt` in the working directory. 
+
+The following are exported
 
 ## Citing the model
 
