@@ -10,12 +10,11 @@ popFraction = xlsread('FractionCellType.xlsx');
 % Input - fold change data
 foldChange = xlsread('FoldChange.xlsx');
 
-% Number of cell states without dead state
-numCellState = 3;
-
 % Number of unknown parameters to be estimated for all time points
 numOfUnk = 15;
 
+% Number of cell states without dead state
+numCellState = 3;
 %-------------------------------------------------------------------------------------------------
 % Computes the average fold change
 numReplicate = size(foldChange, 1);
@@ -41,26 +40,24 @@ q0 = reshape(zeros(numOfUnk, 1), numCellState, num);
 
 % Initialises temporary varibales to store the results of optimisation
 q = zeros(numCellState, num);
-res = zeros(numReplicate, num);
 
 % Iteratively executes optimisation for each time interval
 for i = 1:num
 	fd = foldChange(:,i) - 1;
-	[q(:,i), res(:,i)] = optim(popFract(:,:,i), fd, lb(:,i), ub(:,i), q0(:,i)); 
+	q(:,i) = optim(popFract(:,:,i), fd, lb(:,i), ub(:,i), q0(:,i)); 
 end
 
 % Saves the result in a tab delimited text file
-Text(q, res);
+Text(q);
 end
 
-function [cellDiv, residual] = optim(f, k, lb, ub, q0)
+function cellDiv = optim(f, k, lb, ub, q0)
 % Performs optimisation using leat square linear solver
-[cellDiv, resnorm, residual] = lsqlin(f,k,[],[],[],[],lb,ub,q0);
+cellDiv = lsqlin(f,k,[],[],[],[],lb,ub,q0);
 end
 
 
-function Text(q, res)
+function Text(q)
 % Exports the estimated parameters and the residuals in a tab deimited text file
 dlmwrite('fractionalCellDivision.txt', q, 'delimiter', '\t');
-dlmwrite('residual.txt', res, 'delimiter', '\t');
 end
