@@ -80,7 +80,7 @@ The MATLAB code to estimate the fraction of cell state transition for each time 
    * `popFract` reads the fraction of cell population at the observed time points from the excel sheet `FractionCellType.xlsx`. __The excel sheet should not contain any row or column headers.__
    * `foldChange` reads the fold change in cell population from the excel sheet `FoldChange.xlsx`. __The excel sheet should not contain any row or column headers.__
    * `cellDiv` reads the fractional cell division from the excel sheet `CellDivisionFraction.xlsx` . __The excel sheet should not contain any row or column headers.__
-   * `numOfUnknown` reads the number of unknown parameters to be estimated. It is the product of the square of the number of cell states __(excluding dead cell state)__ and the number of observed time intervals. For example, If there are three cell states observed at five discrete time intervals, `numOfUnk`=45.
+   * `numOfUnknown` reads the number of unknown parameters to be estimated. It is the product of the square of the number of cell states __(excluding dead cell state)__ and the number of observed time intervals. For example, If there are three cell states observed at five discrete time intervals, `numOfUnknown`=45.
    * `numCellState` reads the number of different cell states __(excluding dead cell state)__.
    * `numOptRun` reads the number of independent optimization runs.
 
