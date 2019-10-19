@@ -1,4 +1,8 @@
 function main
+% Reads the user defined input details
+% Executes the independent optimizations in parallel
+% Exports the results of each run
+% Estimates the best optimization run
 
 clear all; clc;
 %--------------------------------------------------------------------------------------------------
@@ -7,25 +11,22 @@ clear all; clc;
 
 % Includes all the files/folders in the below directory to matlab's workspace 
 % Place all the necessary .m files in a folder and add the path to matlab workspace
-addpath('C:\Users\Vimal\Workspace\GitHub\StateTransition\FractionalStateTransitionEstimationCode\')
+addpath('Y:\XXX\FractionalStateTransitionEstimationCode\')
+
+% Input - Fraction of cell population
+popFract = xlsread('FractionCellType.xlsx');
 
 % Input - fold change data
 foldChange = xlsread('FoldChange.xlsx');
 
-% Input - initial fraction of cell population
-popFract = xlsread('FractionCellType.xlsx');
-
-% Input - final fraction of cell population
-%finalPopFract = xlsread('FinalFractionCellType.xlsx');
-
 % Input - Fraction of cell division
 cellDiv = xlsread('CellDivisionFraction.xlsx');
 
-% Number of cell states without dead state
-numCellState = 3;
-
 % Number of unknown parameters to be estimated for all time points
 numOfUnknown = 45;
+
+% Number of cell states without dead state
+numCellState = 3;
 
 % Number of independent optimisation runs
 numOptRun = 10;
@@ -40,8 +41,10 @@ foldChange = mean(foldChange, 1)';
 TEMP = size(popFract, 2)-numCellState;
 initPopFract = popFract(:,(1:TEMP));
 finalPopFract = popFract(:,(1+numCellState:TEMP+numCellState));
+
 % Sets the input parameters to the global object 'st'
 global st;
+
 % Initialises parallel processing setup for optimisation
 initialise (lb, ub, foldChange, initPopFract, finalPopFract, cellDiv, numCellState, numOfUnknown);
 fractTEMP = st.fract;
@@ -66,7 +69,9 @@ parfor i=1:numOptRun
 	fprintf('Completed run-%d of %d\n', i, numOptRun)
 end
 
+% Extracts data from each optimization runs
 data = NaN(numOptRun, 2);
+curDir = pwd;
 for i=1:numOptRun
 	folderPath = sprintf('%s%s%d', curDir, '\', i);
 	cd(folderPath);
@@ -74,6 +79,9 @@ for i=1:numOptRun
 	cd(curDir);
 end
 dlmwrite('bestOfEachRun.txt', data, 'delimiter', '\t');
+
+% Exports the details on the best optimization run to a tab-delimited text
+% file
 [TEMP, index] = min(data(:,1));
 bestObjFun = data(index,:);
 fid=fopen('summary.txt','w');

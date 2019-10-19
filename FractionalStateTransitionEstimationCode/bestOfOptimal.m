@@ -7,6 +7,8 @@ bestOptimal.objFun1 = result.objFun(index,1);
 bestOptimal.objFun2 = result.objFun(index,2);
 plotPareto(result, bestOptimal)
 Text(result, bestOptimal, fract)
+
+end
 %--------------------------------------------------------------------------------------------------
 function plotPareto(result, bestOptimal)
 % Plots the pareto front for each optimisation runs.
@@ -35,13 +37,11 @@ dlmwrite ('bestObjFun.txt', [bestOptimal.objFun1, bestOptimal.objFun2], 'delimit
 numOfVar = fract.numOfVar;
 numOfStates = fract.numOfStates;
 num = numOfVar/(numOfStates^2);
-TEMP = reshape(bestOptimal.fract, numOfStates^2, num)
+TEMP = reshape(bestOptimal.fract, numOfStates^2, num);
 fid=fopen('bestConvergedFract.txt','w');
 for i=1:num
-	fprintf(fid, [repmat('%d\t',1,numOfStates-1) '%d\n'], TEMP(:,i));
+	fprintf(fid, [repmat('%0.4f\t',1,numOfStates-1) '%0.4f\n'], TEMP(:,i));
 end
 fclose(fid);
 end
 %------------------------------------------------------------------------------------------------------
-
-end
