@@ -80,11 +80,11 @@ The MATLAB code to estimate the fraction of cell state transition for each time 
    * `popFract` reads the fraction of cell population at the observed time points from the excel sheet `FractionCellType.xlsx`. __The excel sheet should not contain any row or column headers.__
    * `foldChange` reads the fold change in cell population from the excel sheet `FoldChange.xlsx`. __The excel sheet should not contain any row or column headers.__
    * `cellDiv` reads the fractional cell division from the excel sheet `CellDivisionFraction.xlsx` . __The excel sheet should not contain any row or column headers.__
-   * `numOfUnknown` reads the number of unknown parameters to be estimated. It is the product of the square of the number of cell states and the number of observed time intervals. For example, If there are three cell states observed at five discrete time intervals, `noOfUnk`=45.
-   * `numCellState` reads the number of different cell states.
-   * `numOptRun` reads the number independent optimization runs.
+   * `numOfUnknown` reads the number of unknown parameters to be estimated. It is the product of the square of the number of cell states __(excluding dead cell state)__ and the number of observed time intervals. For example, If there are three cell states observed at five discrete time intervals, `numOfUnk`=45.
+   * `numCellState` reads the number of different cell states __(excluding dead cell state)__.
+   * `numOptRun` reads the number of independent optimization runs.
 
-Download all the [.m files](FractionalStateTransitionEstimationCode/). Place the input excel sheets in the same location of the downloaded MATLAB files. Open the `main.m` file in MATLAB and enter the input details. Enter the location of all downloaded MATLAB files in the `main.m` file using `addpath`. For example, If the MATLAB files are in the location, `C:\xxx\yyy\` then include `addpath('C:\xxx\yyy\')` in the `main.m` file. 
+Download all the [.m files](FractionalStateTransitionEstimationCode/). Place the input excel sheets in the same location of the downloaded MATLAB files. Open the `main.m` file in MATLAB and enter the input details. Enter the location of all downloaded MATLAB files in the `main.m` file using `addpath`. For example, If the MATLAB files are in the location, `C:\xxx\yyy\` then include `addpath('C:\xxx\yyy\')` in the beginning of the `main.m` file. 
 
 Configurations of the parameters of the genetic algorithm are defined in `initialise.m`. If required, the user can edit the parameters in `initialise.m`. The description of each parameter is available in [mathworks](https://in.mathworks.com/help/gads/gamultiobj.html). 
 
