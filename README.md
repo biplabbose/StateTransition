@@ -44,7 +44,7 @@ Fold change in the total cell population (live+dead) is calculated for every con
 | __...__         | ...         | ... | ...         |
 | __replicate_p__ | ...         | ... | ...         |
 
-The data in each column are the fold change in the total cell population. There __should not be any headers__ in the actual input excel sheet. The data should follow the same structure, as shown in the above table.
+The data in each column are the fold change in the total cell population. __There should not be any headers in the actual input excel sheet__. The data should follow the same structure, as shown in the above table.
 
 #### 3. Fractional cell division of each cell state for each time interval
 
@@ -56,7 +56,7 @@ The model estimates fractional cell division from the above two input data. This
 | __...__          | ...            | ... | ...            |
 | __cell_state_m__ | ...            | ... | ...            |
 
-The data in each column are the fractions of cell division of each cell state. There __should not be any headers__ in the actual input excel sheet. The data should follow the same structure, as shown in the above table.
+The data in each column are the fractions of cell division of each cell state. __There should not be any headers in the actual input excel sheet__. The data should follow the same structure, as shown in the above table.
 
 ## Instructions to use the model
 
