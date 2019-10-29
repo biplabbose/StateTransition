@@ -109,7 +109,7 @@ The following are exported to subfolders of each optimization runs:
 | __...__            | ...          | ... | ...            |
 | __cell_state_m-1__ | ...          | ... | ...            |
 
-Once all the independent optimizations are completed, the best solution from each optimization run will be estimated and exported to a tab-delimited text file, `bestOfEachRun.txt`. From this data, the optimal solution is estimated by considering the solution with minimum objective function 1. The details about the optimal solution are exported to a tab-delimited text file, `summary.txt`.
+Once all the independent optimizations are completed, the best solution from each optimization run will be estimated and exported to a tab-delimited text file, `bestOfEachRun.txt`. The solution with minimum objective function 1 is considered the optimal solution. The details about the optimal solution are exported to a tab-delimited text file, `summary.txt`.
 
 ## Test data
 
