@@ -56,15 +56,7 @@ Fold change in the total cell population (live+dead) is calculated for every con
 
 The data in each column are the fold change in the total cell population. __There should not be any headers in the actual input excel sheet__. The data should follow the same structure, as shown in the above table.
 
-The model estimates fractional cell division from the above two input data. This data serves as the input for the second part of the model, where fractional state transition parameters are estimated. The estimated fractional cell division values should follow the below table structure.
-
-|    conditions    |     time_1     | ... |    time_n-1    |
-|------------------|----------------|-----|----------------|
-| __cell_state_1__ | fract_cell_div | ... | fract_cell_div |
-| __...__          | ...            | ... | ...            |
-| __cell_state_m__ | ...            | ... | ...            |
-
-The data in each column are the fractions of cell division of each cell state. __There should not be any headers in the actual input excel sheet__.
+The model estimates fractional cell division from the above two input data. The estimated fractional cell division values should be converted to an excel sheet without any headers. This data serves as the input for the second part of the model, where fractional state transition parameters are estimated. 
 
 ## Instructions to use the model
 
