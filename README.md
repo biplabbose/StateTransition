@@ -26,7 +26,7 @@ The fraction of diving cells in each state is estimated for each time interval. 
 
 The fractional flow of cells from one state to another state is estimated for each time interval. To avoid overfitting of data, we used two objective functions in the parameter estimation. Objective function 1, minimizes the sum of square error between the observed data and the estimated data. Objective function 2, minimizes the difference between L1-norm of fractional state transition parameters of two consecutive time intervals. Using these two objective functions, we estimate the unknown parameters simultaneously for all time intervals. We implemented this optimization strategy using [multiobjective genetic algorithm](https://in.mathworks.com/help/gads/gamultiobj.html). 
 
-The complete optimization steps are repeated multiple times to avoid local minima. Each run of the optimization is independent of the other. Therefore, this part of the model is executed in parallel using [parallel processing](https://in.mathworks.com/help/matlab/ref/parfor.html) in MATLAB.
+The optimization steps are repeated multiple times to avoid local minima. Each run of the optimization is independent of the other. Therefore, this part of the model is executed in parallel using [parallel processing](https://in.mathworks.com/help/matlab/ref/parfor.html) in MATLAB.
 
 ## Input data to the model
 
