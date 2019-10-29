@@ -16,7 +16,7 @@ Devaraj V., Bose B. Morphological State Transition Dynamics in EGF-induced Epith
 
 ## Workflow of the model
 
-The estimation of model parameters involves two steps. First, we estimate the fraction of dividing cells in each state and then we estimate the fraction of cells moving from one state to another state.
+The estimation of model parameters involves two steps. First, we estimate the fraction of dividing cells in each state, and then we estimate the fraction of cells moving from one state to another state.
 
 #### 1. Estimation of fractional cell division parameters:
 
@@ -24,7 +24,9 @@ The fraction of diving cells in each state is estimated for each time interval. 
 
 #### 2. Estimation of fractional state transition parameters:
 
-The fractional flow of cells from one state to another state is estimated for each time interval. To avoid overfitting of data, we used two objective functions in the parameter estimation. Objective function 1, minimizes the sum of square error between the observed data and the estimated data. Objective function 2, minimizes the difference between L1-norm of fractional state transition parameters of two consecutive time intervals. Using these two objective functions, we estimate the unknown parameters simultaneously for all time intervals. We implemented this optimization strategy using [multiobjective genetic algorithm](https://in.mathworks.com/help/gads/gamultiobj.html). The entire optimization process is repeated multiple times to avoid local minima. Each run of the optimization is independent of the other. Therefore, this part of the model is executed in parallel using [parallel processing](https://in.mathworks.com/help/matlab/ref/parfor.html) in MATLAB.
+The fractional flow of cells from one state to another state is estimated for each time interval. To avoid overfitting of data, we used two objective functions in the parameter estimation. Objective function 1, minimizes the sum of square error between the observed data and the estimated data. Objective function 2, minimizes the difference between L1-norm of fractional state transition parameters of two consecutive time intervals. Using these two objective functions, we estimate the unknown parameters simultaneously for all time intervals. We implemented this optimization strategy using [multiobjective genetic algorithm](https://in.mathworks.com/help/gads/gamultiobj.html). 
+
+The complete optimization steps are repeated multiple times to avoid local minima. Each run of the optimization is independent of the other. Therefore, this part of the model is executed in parallel using [parallel processing](https://in.mathworks.com/help/matlab/ref/parfor.html) in MATLAB.
 
 ## Input data to the model
 
@@ -38,7 +40,7 @@ If there are _n_ different time points and _m_ different cell states and _p_ rep
 | __...__         | ...          | ...    | ...            | ... | ...          | ...    | ...            |
 | __replicate_p__ | ...          | ...    | ...            | ... | ...          | ...    | ...            |
 
-The data in each column are the fractions of different cell states. __There should not be any headers in the actual input excel sheet__. The data should follow the same structure, as shown in the above table. __Here, _m-1_ denotes the number of cell states excluding dead cell state__. The summation of cell fractions of all cell state at a given time point is one. The fraction of the dead cell state can be estimated from the other cell states, and the dead cell state does not add any extra information to the model fitting. Therefore, the fraction of the dead cell state will not be used in the model. 
+The data in each column are the fractions of different cell states. __There should not be any headers in the actual input excel sheet__. The data should follow the same structure, as shown in the above table. __Here, _m-1_ denotes the number of cell states excluding dead cell state__. 
 
 Detailed information about the model structure and the underlying assumptions are available in the [supplementary material](https://www.mdpi.com/2077-0383/8/7/911#supplementary) of the [article](https://www.mdpi.com/2077-0383/8/7/911).
 
@@ -54,7 +56,7 @@ Fold change in the total cell population (live+dead) is calculated for every con
 
 The data in each column are the fold change in the total cell population. __There should not be any headers in the actual input excel sheet__. The data should follow the same structure, as shown in the above table.
 
-The model estimates fractional cell division from the above two input data. This data serves as the input for the second part of the model, where fractional state transition parameters are estimated. The estimated fractional cell division values should be arranged as shown in the below table.
+The model estimates fractional cell division from the above two input data. This data serves as the input for the second part of the model, where fractional state transition parameters are estimated. The estimated fractional cell division values should follow the below table structure.
 
 |    conditions    |     time_1     | ... |    time_n-1    |
 |------------------|----------------|-----|----------------|
